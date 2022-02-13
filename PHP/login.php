@@ -11,7 +11,7 @@ if(isset($_POST["password"])){
     $password = $mysqli->real_escape_string($_POST["password"]);
     $password = hash("sha256", $password);
 }else{
-    die("Please fill the password");
+    die("Please fill the password.");
 }
 
 
@@ -30,7 +30,7 @@ if($num_rows == 0){
     $array_response["status"] = "User not found!";
 }else{
     $array_response["status"] = "Logged In !";
-    $array_response["user_id"] = $id;
+    $array_response["user_id"] = time().'a'.$id.':'.rand(1,1000).'e'.rand(1,100);
 }
  
 $json_response = json_encode($array_response);
