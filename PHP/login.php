@@ -1,5 +1,9 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
+
 include("db_info.php");
+include("secure_id.php");
 
 if(isset($_POST["email"])){
     $email = $mysqli->real_escape_string($_POST["email"]);
@@ -9,7 +13,7 @@ if(isset($_POST["email"])){
 
 if(isset($_POST["password"])){
     $password = $mysqli->real_escape_string($_POST["password"]);
-    $password = hash("sha256", $password);
+    $password = hash("sha256", $password); //hash password to save in database
 }else{
     die("Please fill the password.");
 }
@@ -30,7 +34,7 @@ if($num_rows == 0){
     $array_response["status"] = "User not found!";
 }else{
     $array_response["status"] = "Logged In !";
-    $array_response["user_id"] = time().'a'.$id.':'.rand(1,1000).'e'.rand(1,100);
+    $array_response["user_id"] = encrypt($id) ;
 }
  
 $json_response = json_encode($array_response);
