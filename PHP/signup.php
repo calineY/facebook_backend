@@ -1,16 +1,18 @@
 <?php
 
 include("db_info.php");
-
+$_POST = json_decode(file_get_contents('php://input'), true);
 
 if(isset($_POST["email"]) && isset($_POST["user_name"]) && isset($_POST["password"]) && isset($_POST["password_check"]) && isset($_FILES['file']['name'])){
     $email = $mysqli->real_escape_string($_POST["email"]);
     $name = $mysqli->real_escape_string($_POST["user_name"]);
     $password = $mysqli->real_escape_string($_POST["password"]); 
     $password = hash("sha256",$password);
-    $image_name = $_FILES['file']['name'];
+    $image = $_POST['file'];
+    $extension = $_POST['extension'];
     $valid_extensions = array("jpg","jpeg","png");
-    $extension = pathinfo($image_name, PATHINFO_EXTENSION);
+    $image = base64_decode($image);
+
 }else{
     die("Please fill all fields.");
 }
@@ -24,13 +26,13 @@ if(($query->num_rows)>0){
 }else{
     if(in_array($extension, $valid_extensions)){
         $image_name = time() . '.' . $extension;
-        $upload_path = '../upload/'. $image_name;
+        $upload_path = '../images/'. $image_name;
 
-        $query = $mysqli->prepare("INSERT INTO user(user_name,user_email,password,user_picture) VALUES (?,?,?,'$image_name')"); 
-        $query->bind_param("sss", $name, $email, $password);
+        $query = $mysqli->prepare("INSERT INTO user(user_name,user_email,password,user_picture) VALUES (?,?,?,?)"); 
+        $query->bind_param("ssss", $name, $email, $password, $image_name);
         $query->execute();
 
-        move_uploaded_file($_FILES['file']['tmp_name'], $upload_path);
+        file_put_contents($upload_path, $image);
         
     }else {
         die("Please enter a valid picture that ends with ('.jpg','.jpeg','.png')");
