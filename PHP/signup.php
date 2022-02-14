@@ -3,7 +3,7 @@
 include("db_info.php");
 $_POST = json_decode(file_get_contents('php://input'), true);
 
-if(isset($_POST["email"]) && isset($_POST["user_name"]) && isset($_POST["password"]) && isset($_POST["password_check"]) && isset($_FILES['file']['name'])){
+if(isset($_POST["email"]) && isset($_POST["user_name"]) && isset($_POST["password"]) && isset($_POST["password_check"]) && isset($_POST['file']) && isset($_POST['extension'])){
     $email = $mysqli->real_escape_string($_POST["email"]);
     $name = $mysqli->real_escape_string($_POST["user_name"]);
     $password = $mysqli->real_escape_string($_POST["password"]); 
