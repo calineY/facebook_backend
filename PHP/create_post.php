@@ -17,7 +17,7 @@ if(isset($_GET["post_content"])){
     die("Fill post content.");
 }
 
-$post_date = date("Y-m-d H:i:s", strtotime ("+1 hour"));;
+$post_date = date("Y-m-d H:i:s", strtotime ("+1 hour"));
 
 
 $query = $mysqli->prepare("INSERT INTO post (post_content,post_date,user_id) VALUES (?, ?,?);"); 
