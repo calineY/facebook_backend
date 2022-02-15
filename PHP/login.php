@@ -19,7 +19,7 @@ if(isset($_POST["password"])){
 }
 
 
-$query = $mysqli->prepare("SELECT user_id FROM user WHERE user_email = ? AND password = ?");
+$query = $mysqli->prepare("SELECT user_id FROM users WHERE user_email = ? AND password = ?");
 $query->bind_param("ss", $email, $password);
 $query->execute();
 

@@ -15,7 +15,7 @@ if(isset($_GET["post_content"])){
     die("Fill post content.");
 }
 
-$query = $mysqli->prepare("UPDATE post SET post_content =? WHERE post_id=?;"); 
+$query = $mysqli->prepare("UPDATE posts SET post_content =? WHERE post_id=?;"); 
 $query->bind_param("ss",$post_content,$post_id);
 $query->execute();
 

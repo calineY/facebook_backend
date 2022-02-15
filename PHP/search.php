@@ -10,7 +10,7 @@
         die("ID was not Received!");
     }
 
-    $query=$mysqli->prepare("SELECT user_id,user_name FROM user WHERE user_id NOT IN(SELECT from_user_id FROM block WHERE to_user_id=?);");
+    $query=$mysqli->prepare("SELECT user_id,user_name FROM users WHERE user_id NOT IN(SELECT from_user_id FROM blocks WHERE to_user_id=?);");
     $query->bind_param("s", $id);
     $query->execute();
     $array = $query->get_result();

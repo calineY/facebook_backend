@@ -10,8 +10,8 @@
         die("ID was not Received!");
     }
 
-    $query=$mysqli->prepare("SELECT user.user_picture,user.user_name,post.post_content,post.post_date,(SELECT COUNT(post_like.id) from post_like WHERE post_like.post_id=post.post_id) AS nb_likes FROM post,user WHERE post.user_id IN(SELECT friend_id FROM user_friend WHERE user_id=? UNION SELECT user_id FROM user WHERE user_id=?) AND user.user_id=post.user_id ORDER BY post.post_date DESC;");
-    $query->bind_param("ii",$id,$id);
+    $query=$mysqli->prepare("SELECT users.user_picture,users.user_name,posts.post_id,posts.post_content,posts.post_date,(SELECT COUNT(post_likes.id) from post_likes WHERE post_likes.post_id=posts.post_id) AS nb_likes FROM posts,users WHERE posts.user_id IN(SELECT friend_id FROM user_friends WHERE user_id=? UNION SELECT user_id FROM user_friends WHERE friend_id=? UNION SELECT user_id FROM users WHERE user_id=?) AND users.user_id=posts.user_id ORDER BY posts.post_date DESC;");
+    $query->bind_param("iii",$id,$id,$id);
     $query->execute();
     $array = $query->get_result();
 

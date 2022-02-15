@@ -26,7 +26,7 @@ if(isset($_GET["action"])){
 
 
 if ($action=="like"){ 
-    $query = $mysqli->prepare("INSERT INTO post_like (post_id,user_id) VALUES (?, ?);"); 
+    $query = $mysqli->prepare("INSERT INTO post_likes (post_id,user_id) VALUES (?, ?);"); 
     $query->bind_param("ii", $post_id,$id);
     $query->execute();
 
@@ -34,7 +34,7 @@ if ($action=="like"){
 }
 
 if ($action=="dislike"){
-    $query2 = $mysqli->prepare("DELETE FROM post_like WHERE post_id=? AND user_id=?;"); 
+    $query2 = $mysqli->prepare("DELETE FROM post_likes WHERE post_id=? AND user_id=?;"); 
     $query2->bind_param("ii",$post_id,$id);
     $query2->execute();
 

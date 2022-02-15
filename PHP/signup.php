@@ -17,7 +17,7 @@ if(isset($_POST["email"]) && isset($_POST["user_name"]) && isset($_POST["passwor
     die("Please fill all fields.");
 }
 
-$query=$mysqli->prepare("SELECT * FROM user where user_email='$email'");
+$query=$mysqli->prepare("SELECT * FROM users where user_email='$email'");
 $query->execute();
 $query->store_result();
 
@@ -28,7 +28,7 @@ if(($query->num_rows)>0){
         $image_name = time() . '.' . $extension;
         $upload_path = '../images/'. $image_name;
 
-        $query = $mysqli->prepare("INSERT INTO user(user_name,user_email,password,user_picture) VALUES (?,?,?,?)"); 
+        $query = $mysqli->prepare("INSERT INTO users(user_name,user_email,password,user_picture) VALUES (?,?,?,?)"); 
         $query->bind_param("ssss", $name, $email, $password, $image_name);
         $query->execute();
 

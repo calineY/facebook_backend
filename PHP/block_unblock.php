@@ -26,7 +26,7 @@ if(isset($_GET["action"])){
 
 
 if ($action=="block"){ 
-    $query = $mysqli->prepare("INSERT INTO block (from_user_id,to_user_id) VALUES (?, ?);"); 
+    $query = $mysqli->prepare("INSERT INTO blocks (from_user_id,to_user_id) VALUES (?, ?);"); 
     $query->bind_param("ii", $id,$to_user_id);
     $query->execute();
 
@@ -34,7 +34,7 @@ if ($action=="block"){
 }
 
 if ($action=="unblock"){
-    $query2 = $mysqli->prepare("DELETE FROM block WHERE from_user_id=? AND to_user_id=?;"); 
+    $query2 = $mysqli->prepare("DELETE FROM blocks WHERE from_user_id=? AND to_user_id=?;"); 
     $query2->bind_param("ii",$id,$to_user_id);
     $query2->execute();
 

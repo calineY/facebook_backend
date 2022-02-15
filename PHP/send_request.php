@@ -17,7 +17,7 @@ if(isset($_GET["to_user_id"])){
     die("ID to request was not Received!");
 }
 
-$query = $mysqli->prepare("INSERT INTO friend_request(from_user_id,to_user_id) VALUES (?,?)"); 
+$query = $mysqli->prepare("INSERT INTO friend_requests(from_user_id,to_user_id) VALUES (?,?)"); 
 $query->bind_param("ii", $id, $request_to_id);
 $query->execute();
 

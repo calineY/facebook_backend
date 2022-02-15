@@ -9,13 +9,13 @@ if(isset($_GET["post_id"])){
     die("post ID was not Received!");
 }
 
-$query = $mysqli->prepare("DELETE FROM post WHERE post_id=?;"); 
+$query = $mysqli->prepare("DELETE FROM posts WHERE post_id=?;"); 
 $query->bind_param("i",$post_id);
 $query->execute();
 
 echo "Post deleted";
 
-$query = $mysqli->prepare("DELETE FROM post_like WHERE post_id=?;"); 
+$query = $mysqli->prepare("DELETE FROM post_likes WHERE post_id=?;"); 
 $query->bind_param("i",$post_id);
 $query->execute();
 

@@ -10,7 +10,7 @@
         die("ID was not Received!");
     }
 
-    $query=$mysqli->prepare("SELECT user.user_id,user.user_name FROM user WHERE user.user_id IN(SELECT from_user_id FROM friend_request WHERE to_user_id=?) AND user.user_id NOT IN(SELECT to_user_id FROM block WHERE from_user_id=?);");
+    $query=$mysqli->prepare("SELECT users.user_id,users.user_name FROM users WHERE users.user_id IN(SELECT from_user_id FROM friend_requests WHERE to_user_id=?) AND users.user_id NOT IN(SELECT to_user_id FROM blocks WHERE from_user_id=?);");
     $query->bind_param("ss", $id,$id);
     $query->execute();
     $array = $query->get_result();
