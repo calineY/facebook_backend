@@ -2,17 +2,18 @@
 
 
 include("db_info.php");
+include("secure_id.php");
+$_POST = json_decode(file_get_contents('php://input'), true);
 
-if(isset($_GET["user_id"])){
-    $id = $_GET["user_id"];
-    // decrypt id
-    // ------------------------
+if(isset($_POST["user_id"])){
+    $id = $_POST["user_id"];
+    $id=decrypt($id);
 }else {
     die("ID was not Received!");
 }
 
-if(isset($_GET["post_content"])){
-    $post_content = $_GET["post_content"];
+if(isset($_POST["post_content"])){
+    $post_content = $_POST["post_content"];
 }else {
     die("Fill post content.");
 }

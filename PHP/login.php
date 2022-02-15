@@ -1,9 +1,9 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
 
 include("db_info.php");
 include("secure_id.php");
+$_POST = json_decode(file_get_contents('php://input'), true);
 
 if(isset($_POST["email"])){
     $email = $mysqli->real_escape_string($_POST["email"]);
