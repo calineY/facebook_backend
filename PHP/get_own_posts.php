@@ -2,15 +2,19 @@
 
     include("db_info.php");
     include("secure_id.php");
-    $_POST = json_decode(file_get_contents('php://input'), true);
+    $_POST = json_decode(file_get_contents('php://input'), true); //creates array of input sent from axios post method
+    $array_response = [];
 
     if(isset($_POST["user_id"])){
         $id = $_POST["user_id"];
         $id=decrypt($id);
     }else {
-        die("ID was not Received!");
+        $array_response["message"] = "Id was not received.";
+        $json_response = json_encode($array_response);
+        return $json_response;
     }
-
+    
+    //query will select only the posts of the user
     $query=$mysqli->prepare("SELECT posts.post_id,posts.post_content,posts.post_date,
     (SELECT COUNT(post_likes.id) from post_likes WHERE post_likes.post_id=posts.post_id)
     AS nb_likes 
@@ -20,9 +24,9 @@
     $query->execute();
     $array = $query->get_result();
 
-    $array_response = [];
-    while($user = $array->fetch_assoc()){
-        $array_response[] = $user;
+
+    while($post = $array->fetch_assoc()){
+        $array_response[] = $post;
     }
 
     $json_response = json_encode($array_response);

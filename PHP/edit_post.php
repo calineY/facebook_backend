@@ -3,17 +3,22 @@
 
 include("db_info.php");
 $_POST = json_decode(file_get_contents('php://input'), true);
+$array_response = [];
 
 if(isset($_POST["post_id"])){
     $post_id = $_POST["post_id"];
 }else {
-    die("post ID was not Received!");
+    $array_response["message"] = "Post Id was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 if(isset($_POST["post_content"])){
     $post_content = $_POST["post_content"];
 }else {
-    die("Fill post content.");
+    $array_response["message"] = "Post content was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 $query = $mysqli->prepare("UPDATE posts SET post_content =? WHERE post_id=?;"); 

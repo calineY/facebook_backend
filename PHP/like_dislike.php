@@ -3,26 +3,33 @@
 
 include("db_info.php");
 include("secure_id.php");
-$_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true); //creates array of input sent from axios post method
+$array_response = [];
 
 if(isset($_POST["user_id"])){
     $id = $_POST["user_id"];
     $id=decrypt($id);
 }else {
-    die("ID was not Received!");
+    $array_response["message"] = "Id was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 if(isset($_POST["post_id"])){
     $post_id = $_POST["post_id"];
 }else {
-    die("Post ID was not received!");
+    $array_response["message"] = "Post id was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 
 if(isset($_POST["action"])){
-    $action = $_POST["action"];
+    $action = $_POST["action"];  //like or unlike
 }else {
-    die("Action was not Received!");
+    $array_response["message"] = "Action was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 

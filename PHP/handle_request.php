@@ -2,26 +2,33 @@
 
 include("db_info.php");
 include("secure_id.php");
-$_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true); //creates array of input sent from axios post method
+$array_response = [];
 
 
 if(isset($_POST["user_id"])){
     $id = $_POST["user_id"];
     $id=decrypt($id);
 }else {
-    die("ID was not Received!");
+    $array_response["message"] = "Id was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 if(isset($_POST["to_user_id"])){
     $friend_id = $_POST["to_user_id"];
 }else {
-    die("ID to request was not Received!");
+    $array_response["message"] = "Id to request was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 if(isset($_POST["action"])){
     $action = $_POST["action"];
 }else {
-    die("Action was not Received!");
+    $array_response["message"] = "Action was not received.";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 
 if ($action=="accept" || $action=="delete"){
