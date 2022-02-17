@@ -16,7 +16,7 @@ if(isset($_POST["email"])){
 
 if(isset($_POST["password"])){
     $password = $mysqli->real_escape_string($_POST["password"]);
-    $password = hash("sha256", $password); //hash password to save in database
+    //$password = hash("sha256", $password); //hash password to save in database
 }else{
     $array_response["message"] = "Invalid password.";
     $json_response = json_encode($array_response);

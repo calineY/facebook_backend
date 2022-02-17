@@ -28,7 +28,7 @@ if(isset($_POST["email"]) && isset($_POST["user_name"]) && isset($_POST["passwor
     $image = $_POST['file'];
     $extension = $_POST['extension'];
     $valid_extensions = array("jpg","jpeg","png");
-    $image = base64_decode($image);
+    //$image = base64_decode($image);
 
 }else{
     $array_response["message"] = "Fill all fields.";

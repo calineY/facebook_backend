@@ -30,9 +30,9 @@ if(isset($_POST["action"])){  //send or unsend
     return $json_response;
 }
 
-if ($action=="send"){   //send request
+if ($action=="send"){   //send
     $query = $mysqli->prepare("INSERT INTO friend_requests(from_user_id,to_user_id) VALUES (?,?);"); 
-    $query->bind_param("ii", $id,$to_user_id);
+    $query->bind_param("ii", $id,$request_to_id);
     $query->execute();
 
     echo "Request sent";

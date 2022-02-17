@@ -36,19 +36,21 @@ if ($action=="accept" || $action=="delete"){
         $query = $mysqli->prepare("INSERT INTO user_friends(user_id,friend_id) VALUES (?,?);"); 
         $query->bind_param("ii", $id, $friend_id);
         $query->execute();
+        $query->close();
 
         echo "Friend added";
     }
-    if ($query){  //delete request either way
-        $query2 = $mysqli->prepare("DELETE FROM friend_requests WHERE friend_requests.from_user_id=? AND friend_requests.to_user_id=?;"); 
-        $query2->bind_param("ii",$friend_id,$id);
-        $query2->execute();
-        if($action=="delete"){
-            echo "Request ignored";
-        }
+ //delete request either way
+    $query2 = $mysqli->prepare("DELETE FROM friend_requests WHERE friend_requests.from_user_id=? AND friend_requests.to_user_id=?;"); 
+    $query2->bind_param("ii",$friend_id,$id);
+    $query2->execute();
+    $query2->close();
+    if($action=="delete"){
+        echo "Request ignored";
     }
+
 }
-$query->close();
+
 $mysqli->close();
 
 ?>

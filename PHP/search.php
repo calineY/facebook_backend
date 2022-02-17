@@ -15,8 +15,8 @@
     }
     
     //get users that did not block the user
-    $query=$mysqli->prepare("SELECT user_id,user_name FROM users WHERE user_id NOT IN(SELECT from_user_id FROM blocks WHERE to_user_id=? UNION SELECT user_id FROM users where user_id=?);");
-    $query->bind_param("ss", $id,$id);
+    $query=$mysqli->prepare("SELECT user_id,user_name FROM users WHERE user_id NOT IN(SELECT from_user_id FROM blocks WHERE to_user_id=? UNION SELECT user_id FROM users where user_id=?) AND user_id NOT IN (SELECT friend_id FROM user_friends WHERE user_id=? UNION SELECT user_id FROM user_friends WHERE friend_id=? UNION SELECT user_id FROM users WHERE user_id=?);");
+    $query->bind_param("sssss", $id,$id,$id,$id,$id);
     $query->execute();
     $array = $query->get_result();
 

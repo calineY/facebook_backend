@@ -2,7 +2,7 @@
 
 
 include("db_info.php");
-$_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), true); //creates array of input sent from axios post method
 $array_response = [];
 
 if(isset($_POST["post_id"])){
