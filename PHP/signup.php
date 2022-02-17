@@ -32,8 +32,10 @@ if(($query->num_rows)>0){
     $query = $mysqli->prepare("INSERT INTO users(user_name,user_email,password) VALUES (?,?,?)"); 
     $query->bind_param("sss", $name, $email, $password);
     $query->execute();
-        
-    echo "User created";
+    
+    $array_response["message"] = "User created";
+    $json_response = json_encode($array_response);
+    return $json_response;
 }
 $query->close();
 $mysqli->close();
